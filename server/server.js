@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const fastify = require('fastify')();
 const routes = require('./routes');
 const path = require('path')
-//const {parsed : {MONGO_ATLAS_PW}} = require('dotenv').config();
+const {parsed : {MONGO_ATLAS_PW}} = require('dotenv').config();
 const DistPath = path.join(__dirname, '..', 'dist')
 
 fastify.register(require('fastify-static'), {
   root: DistPath,
 })
 
-mongoose.connect(`mongodb+srv://UserTest:*123456@cluster0-rczfe.azure.mongodb.net/test?retryWrites=true&w=majority`, { useFindAndModify: false, useNewUrlParser: true })
+mongoose.connect(`mongodb+srv://UserTest:{MONGO_ATLAS_PW}@cluster0-rczfe.azure.mongodb.net/test?retryWrites=true&w=majority`, { useFindAndModify: false, useNewUrlParser: true })
   .then(() => console.log('MongoDB connected'))
   .catch(e => console.log('MongoDB could not be connected due to ', e));
 
